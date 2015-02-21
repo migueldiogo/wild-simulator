@@ -92,9 +92,11 @@ public abstract class Animal extends SerVivo {
     
     /**
      * Movimenta animal aleatoriamente para uma casa vizinha.
+     * @throws scctp1.AnimalMorreuException
+     * @throws scctp1.AnimalReproduziuException
      * @see PontoToroidal2D
      */
-    public void move() {
+    public void move() throws AnimalMorreuException, AnimalReproduziuException {
         Random rand = new Random();
         /* escolhe a casa vizinha a visitar */
         
@@ -106,19 +108,22 @@ public abstract class Animal extends SerVivo {
         while (dX == 0 && dY == 0);
 
 
-        morre();
         System.out.print("movi de " + coordenada.getCoordX() + " " + coordenada.getCoordY());
         coordenada.adiciona(mundo, dX, dY);   // move animal
-        ressuscita();
         System.out.println(" para " + coordenada.getCoordX() + " " + coordenada.getCoordY());
 
-        
+     
         energia--;
         if (energia <= 0) {
-            morre();
+            throw new AnimalMorreuException();
         }
         else {
-            tentaReproduzir();
+            try{
+                tentaReproduzir();
+            }
+            catch (AnimalReproduziuException e) {
+                throw e;
+            }
 
         }
         
@@ -126,7 +131,7 @@ public abstract class Animal extends SerVivo {
     
     public abstract void come();
     
-    public abstract void tentaReproduzir();
+    public abstract void tentaReproduzir() throws AnimalReproduziuException;
         
     @Override
     public abstract void morre();

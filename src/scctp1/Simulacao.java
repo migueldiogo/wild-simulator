@@ -6,6 +6,7 @@
 package scctp1;
 
 import java.util.Iterator;
+import java.util.ListIterator;
 
 
 /**
@@ -33,14 +34,13 @@ public class Simulacao {
         int contadorDeUnidadesTempo = 1;
         while (System.currentTimeMillis()/1000 < timeInicio+unidadeTempoEmSegundos*numLimiteUnidadesTempo) {
             
-            for (i = 0; i < mundo.getQuadrados().length; i++) {
-                for (j = 0; j < mundo.getQuadrados()[0].length; j++) {
-                    for (Ovelha ovelha : mundo.getQuadrados()[i][j].getOvelhas())
-                        ovelha.come();
-                    for (Lobo lobo : mundo.getQuadrados()[i][j].getLobos())
-                        lobo.come();
-                }
-            }
+
+            for (Ovelha ovelha : mundo.getOvelhas())
+                ovelha.come();
+            for (Lobo lobo : mundo.getLobos())
+                lobo.come();
+                
+            
             
                         
             if (System.currentTimeMillis()/1000 >= timeInicio+unidadeTempoEmSegundos*contadorDeUnidadesTempo) {
@@ -50,17 +50,37 @@ public class Simulacao {
                 
             
             if (System.currentTimeMillis()/1000 >= timeInicio+unidadeTempoEmSegundos*numUnidadesCicloFita*contadorDeAnalises) {
-            for (i = 0; i < mundo.getQuadrados().length; i++) {
-                for (j = 0; j < mundo.getQuadrados()[0].length; j++) {
-                    Iterator<Ovelha> itOvelha = mundo.getQuadrados()[i][j].getOvelhas().iterator();
-                    while (itOvelha.hasNext())
-                        itOvelha.next().move();
-                    Iterator<Ovelha> itLobo = mundo.getQuadrados()[i][j].getOvelhas().iterator();
-                    while (itLobo.hasNext())
-                        itLobo.next().move();
-                }
-            }
-                System.out.println("Ovelhas: " + mundo.getNumeroOvelhasTotal() + ", Lobos: " + mundo.getNumeroLobosTotal() + 
+                    ListIterator<Ovelha> itOvelha = mundo.getOvelhas().listIterator();
+                    while (itOvelha.hasNext()) {
+                        Ovelha ovelhaAtual = itOvelha.next();
+                        try {
+                            ovelhaAtual.move();
+                        }
+                        catch (AnimalMorreuException e) {
+                            itOvelha.remove();
+                        }
+                        catch (AnimalReproduziuException e) {
+                            itOvelha.add(new Ovelha(mundo, ovelhaAtual.getEnergia()/2, ovelhaAtual.getCoordenadas().getCoordX(), ovelhaAtual.getCoordenadas().getCoordY()));
+                        }
+                        
+                    }
+                    ListIterator<Lobo> itLobo = mundo.getLobos().listIterator();
+                    while (itLobo.hasNext()) {
+                        Lobo loboAtual = itLobo.next();
+
+                        try {
+                            loboAtual.move();
+                        }
+                        catch (AnimalMorreuException e) {
+                            itLobo.remove();
+                        }
+                        catch (AnimalReproduziuException e) {
+                            itLobo.add(new Lobo(mundo, loboAtual.getEnergia()/2, loboAtual.getCoordenadas().getCoordX(), loboAtual.getCoordenadas().getCoordY()));
+                        }
+                        
+                    }
+                    
+                System.out.println("Ovelhas: " + mundo.getOvelhas().size()+ ", Lobos: " + mundo.getLobos().size() + 
                                     ", Casas com Vegestacao: " + mundo.getNumeroVegestacaoTotal());
                 contadorDeAnalises++;
             }

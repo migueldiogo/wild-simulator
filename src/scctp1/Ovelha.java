@@ -50,30 +50,30 @@ public class Ovelha extends Animal{
 
     @Override
     public void morre() {
-        mundo.getQuadrado(this).remove(this);
+        mundo.getOvelhas().remove(this);
     }
     
     @Override
     public void ressuscita() {
-        mundo.getQuadrado(this).adiciona(this);
+        mundo.getOvelhas().add(this);
     }
 
     @Override
-    public void tentaReproduzir() {
+    public void tentaReproduzir() throws AnimalReproduziuException{
         Random rand = new Random();
         /* sorteia numero de 0 a 99 (100 numeros), calhar os primeiros quatro equivale a probabilidade de 4% */
-        if (rand.nextInt(100) < 4) {
-            mundo.getQuadrado(this).adiciona(new Ovelha(mundo, energia/2, coordenada.getCoordX(), coordenada.getCoordY()));
+        if (rand.nextInt(100) < 4 && energia > 2) {
+            throw new AnimalReproduziuException();
         }
             
     }
 
     @Override
     public void come() {
-        Vegestacao vegestacaoLocal = mundo.getQuadrado(this).getVegestacao();
+        Vegestacao vegestacaoLocal = mundo.getVegestacao(this);
         if (vegestacaoLocal.isReady() && energia > 0) {
-            int numOvelhasLocais = mundo.getQuadrado(this).getOvelhas().size();
-            for (Ovelha ovelha : mundo.getQuadrado(this).getOvelhas()) {
+            int numOvelhasLocais = mundo.getOvelhas(this).size();
+            for (Ovelha ovelha : mundo.getOvelhas(this)) {
                 ovelha.setEnergia(ovelha.getEnergia() + vegestacaoLocal.getEnergia()/numOvelhasLocais);
             } 
             vegestacaoLocal.morre();

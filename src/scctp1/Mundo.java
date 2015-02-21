@@ -23,7 +23,9 @@ public class Mundo {
      * Largura do mundo (dimensão horizontal)
      */
     private int largura;
-    private Quadrado[][] quadrados;
+    private ArrayList<Ovelha> ovelhas;
+    private ArrayList<Lobo> lobos;
+    private Vegestacao[][] vegestacao;
 
     
     public Mundo() {
@@ -31,16 +33,17 @@ public class Mundo {
         Random rand = new Random();
         largura = 51;
         comprimento = 51;
-        quadrados = new Quadrado[largura][comprimento];
+        vegestacao = new Vegestacao[largura][comprimento];
+        ovelhas = new ArrayList();
+        lobos = new ArrayList();
         
-        for (i = 0; i < quadrados.length; i++) {
-            for (j = 0; j < quadrados[0].length; j++) {
-                quadrados[i][j] = new Quadrado();
+        for (i = 0; i < vegestacao.length; i++) {
+            for (j = 0; j < vegestacao[0].length; j++) {
                 /* probabilidade de haver vegestacao = 50% = 0.5 */
                 if (rand.nextInt(2) == 0)
-                    quadrados[i][j].setVegestacao(new Vegestacao(true));
+                    vegestacao[i][j] = new Vegestacao(true);
                 else
-                    quadrados[i][j].setVegestacao(new Vegestacao(false));
+                    vegestacao[i][j] = new Vegestacao(false);
             }
         }
         
@@ -51,7 +54,7 @@ public class Mundo {
             int coordY = rand.nextInt(51);
 
             Lobo lobo = new Lobo(this, coordX, coordY);
-            quadrados[coordX][coordY].adiciona(lobo);
+            lobos.add(lobo);
         }
         
         /* insere aleatoriamente 100 ovelhas no mundo */
@@ -60,7 +63,7 @@ public class Mundo {
             int coordY = rand.nextInt(51);
 
             Ovelha ovelha = new Ovelha(this, coordX, coordY);
-            quadrados[coordX][coordY].adiciona(ovelha);
+            ovelhas.add(ovelha);
         }
     }
 
@@ -69,16 +72,18 @@ public class Mundo {
         Random rand = new Random();
         largura = 51;
         comprimento = 51;
-        quadrados = new Quadrado[largura][comprimento];
+        vegestacao = new Vegestacao[largura][comprimento];
         
-        for (i = 0; i < quadrados.length; i++) {
-            for (j = 0; j < quadrados[0].length; j++) {
-                quadrados[i][j] = new Quadrado();
+        ovelhas = new ArrayList();
+        lobos = new ArrayList();
+        
+        for (i = 0; i < vegestacao.length; i++) {
+            for (j = 0; j < vegestacao[0].length; j++) {
                 /* probabilidade de haver vegestacao = 50% = 0.5 */
                 if (rand.nextInt(2) == 0)
-                    quadrados[i][j].setVegestacao(new Vegestacao(true));
+                    vegestacao[i][j] = new Vegestacao(true);
                 else
-                    quadrados[i][j].setVegestacao(new Vegestacao(false)); 
+                    vegestacao[i][j] = new Vegestacao(false);
             }
         }
         
@@ -89,7 +94,7 @@ public class Mundo {
             int coordY = rand.nextInt(51);
 
             Lobo lobo = new Lobo(this, coordX, coordY);
-            quadrados[coordX][coordY].adiciona(lobo);
+            lobos.add(lobo);
         }
         
         /* insere aleatoriamente y ovelhas no mundo */
@@ -98,7 +103,7 @@ public class Mundo {
             int coordY = rand.nextInt(51);
 
             Ovelha ovelha = new Ovelha(this, coordX, coordY);
-            quadrados[coordX][coordY].adiciona(ovelha);
+            ovelhas.add(ovelha);
         }
     }
     
@@ -107,16 +112,18 @@ public class Mundo {
         Random rand = new Random();
         this.largura = largura;
         this.comprimento = comprimento;
-        quadrados = new Quadrado[largura][comprimento];
+        vegestacao = new Vegestacao[largura][comprimento];
         
-        for (i = 0; i < largura; i++) {
-            for (j = 0; j < comprimento; j++) {
-                quadrados[i][j] = new Quadrado();
+        ovelhas = new ArrayList();
+        lobos = new ArrayList();
+        
+        for (i = 0; i < vegestacao.length; i++) {
+            for (j = 0; j < vegestacao[0].length; j++) {
                 /* probabilidade de haver vegestacao = 50% = 0.5 */
-                if (rand.nextInt(2) == 0) 
-                    quadrados[i][j].setVegestacao(new Vegestacao(true));
+                if (rand.nextInt(2) == 0)
+                    vegestacao[i][j] = new Vegestacao(true);
                 else
-                   quadrados[i][j].setVegestacao(new Vegestacao(false)); 
+                    vegestacao[i][j] = new Vegestacao(false);
             }
         }
         
@@ -127,7 +134,7 @@ public class Mundo {
             int coordY = rand.nextInt(comprimento);
 
             Lobo lobo = new Lobo(this, coordX, coordY);
-            quadrados[coordX][coordY].adiciona(lobo);
+            lobos.add(lobo);
         }
         
         /* insere aleatoriamente y ovelhas no mundo */
@@ -136,7 +143,7 @@ public class Mundo {
             int coordY = rand.nextInt(comprimento);
 
             Ovelha ovelha = new Ovelha(this, coordX, coordY);
-            quadrados[coordX][coordY].adiciona(ovelha);
+            ovelhas.add(ovelha);
         }
     }
     
@@ -150,7 +157,7 @@ public class Mundo {
         return largura;
     }
     
-
+/*
     public Quadrado[][] getQuadrados() {
         return quadrados;
     }
@@ -158,7 +165,7 @@ public class Mundo {
     public Quadrado getQuadrado(Animal animal) {
         return quadrados[animal.getCoordenadas().getCoordX()][animal.getCoordenadas().getCoordY()];
     }
-
+*/
     public void setComprimento(int comprimento) {
         this.comprimento = comprimento;
     }
@@ -166,8 +173,57 @@ public class Mundo {
     public void setLargura(int largura) {
         this.largura = largura;
     }
+
+    public ArrayList<Ovelha> getOvelhas() {
+        return ovelhas;
+    }
+    
+    public ArrayList<Lobo> getLobos() {
+        return lobos;
+    }
+
+    /* retorna array de ovelhas cujas coordenadas coincidem com o animal em argumento */
+    public ArrayList<Ovelha> getOvelhas(Animal animal) {
+        ArrayList<Ovelha> ovelhasRetornadas = new ArrayList();
+        for (Ovelha ovelha : ovelhas) {
+            if (ovelha.getCoordenadas().equals(animal.getCoordenadas()))
+                ovelhasRetornadas.add(ovelha);
+        } 
+        return ovelhasRetornadas;
+    }
+    
+    public ArrayList<Lobo> getLobos(Animal animal) {
+        ArrayList<Lobo> lobosRetornados = new ArrayList();
+        for (Lobo lobo : lobos) {
+            if (lobo.getCoordenadas().equals(animal.getCoordenadas()))
+                lobosRetornados.add(lobo);
+        } 
+        return lobosRetornados;
+    }
+
+    public Vegestacao[][] getVegestacao() {
+        return vegestacao;
+    }
+    
+    public Vegestacao getVegestacao(Animal animal) {
+        return vegestacao[animal.getCoordenadas().getCoordX()][animal.getCoordenadas().getCoordY()];
+    }
+
+    public void setOvelhas(ArrayList<Ovelha> ovelhas) {
+        this.ovelhas = ovelhas;
+    }
+
+    public void setLobos(ArrayList<Lobo> lobos) {
+        this.lobos = lobos;
+    }
+
+    public void setVegestacao(Vegestacao[][] vegestacao) {
+        this.vegestacao = vegestacao;
+    }
     
     
+    
+    /*
     public int getNumeroOvelhasTotal() {
         int soma = 0;
         for (int i = 0; i < quadrados.length; i++) {
@@ -187,12 +243,12 @@ public class Mundo {
         }
         return soma;
     }
-    
+    */
     public int getNumeroVegestacaoTotal() {
         int soma = 0;
-        for (int i = 0; i < quadrados.length; i++) {
-            for (int j = 0; j < quadrados[0].length; j++) {
-                if (quadrados[i][j].getVegestacao().isReady())
+        for (int i = 0; i < vegestacao.length; i++) {
+            for (int j = 0; j < vegestacao[0].length; j++) {
+                if (vegestacao[i][j].isReady())
                     soma++;
             }
         }
@@ -202,9 +258,9 @@ public class Mundo {
 
     
     public void cresceVegestacao() {
-        for (int i = 0; i < quadrados.length; i++) {
-            for (int j = 0; j < quadrados[0].length; j++) {
-                quadrados[i][j].getVegestacao().cresce();
+        for (int i = 0; i < vegestacao.length; i++) {
+            for (int j = 0; j < vegestacao[0].length; j++) {
+                vegestacao[i][j].cresce();
             }
         }    
     }

@@ -52,22 +52,21 @@ public class Lobo extends Animal{
 
     @Override
     public void morre() {
-        mundo.getQuadrado(this).remove(this);
+        mundo.getLobos().remove(this);
     }
     
     @Override
     public void ressuscita() {
-        mundo.getQuadrado(this).adiciona(this);
+        mundo.getLobos().add(this);
     }
 
     @Override
-    public void tentaReproduzir() {
+    public void tentaReproduzir() throws AnimalReproduziuException{
         Random rand = new Random();
         /* sorteia numero de 0 a 99 (100 numeros), calhar os primeiros cinco equivale a probabilidade de 5% */
-        if (rand.nextInt(100) < 5) {
-            mundo.getQuadrado(this).adiciona(new Lobo(mundo, energia/2, coordenada.getCoordX(), coordenada.getCoordY()));
+        if (rand.nextInt(100) < 5 && energia > 2) {
             System.out.println("Reproduzi" + " eu - " + coordenada.getCoordX() + " " + coordenada.getCoordY() + ", ele " + coordenada.getCoordX() + " " + coordenada.getCoordY());
-
+            throw new AnimalReproduziuException();
         }
 
 
@@ -77,11 +76,10 @@ public class Lobo extends Animal{
     @Override
     public void come() {
         /* lobo come uma ovelha inteira sem partilhar */
-        if (!mundo.getQuadrado(this).getOvelhas().isEmpty() && energia > 0) {
+        if (!mundo.getOvelhas(this).isEmpty() && energia > 0) {
             /* primeira ovelha que encontra */
-            mundo.getQuadrado(this).getOvelhas().get(0).morre();
+            mundo.getOvelhas().remove(mundo.getOvelhas(this).get(0));
             energia += 20;
-            System.out.println("comi");
         } 
     }
 
