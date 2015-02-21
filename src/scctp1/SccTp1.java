@@ -16,7 +16,7 @@ public class SccTp1 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Mundo mundo = new Mundo();
+        Mundo mundo = new Mundo(30, 0);
         
         Simulacao sim = new Simulacao(1, 40, 1, mundo);
         sim.run();

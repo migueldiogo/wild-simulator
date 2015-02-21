@@ -47,33 +47,7 @@ public abstract class Animal extends SerVivo {
         this.mundo = mundo;
         
     }
-    /*
-    public static void move(Mundo mundo) {
-        Iterator<Animal> it;
-        for (int i = 0; i < mundo.getQuadrados().length; i++) {
-            for (int j = 0; j < mundo.getQuadrados()[0].length; j++) {
-                it = mundo.getQuadrados()[i][j].getAnimais().iterator();
-                while (it.hasNext()) {
-                    it.next().move();
-                }
-            }
-        }
-    }
-    
-    public static void come(Mundo mundo) {     
-        Iterator<Animal> it;
-        for (int i = 0; i < mundo.getQuadrados().length; i++) {
-            for (int j = 0; j < mundo.getQuadrados()[0].length; j++) {
-                it = mundo.getQuadrados()[i][j].getAnimais().iterator();
-                while (it.hasNext()) {
-                    it.next().come();
-                }
-            }
-        }
-    }
-    
-    */
-    
+
     
     public PontoToroidal2D getCoordenadas() {
         return coordenada;
@@ -108,9 +82,9 @@ public abstract class Animal extends SerVivo {
         while (dX == 0 && dY == 0);
 
 
-        System.out.print("movi de " + coordenada.getCoordX() + " " + coordenada.getCoordY());
+        //System.out.print("movi de " + coordenada.getCoordX() + " " + coordenada.getCoordY());
         coordenada.adiciona(mundo, dX, dY);   // move animal
-        System.out.println(" para " + coordenada.getCoordX() + " " + coordenada.getCoordY());
+        //System.out.println(" para " + coordenada.getCoordX() + " " + coordenada.getCoordY());
 
      
         energia--;

@@ -62,7 +62,7 @@ public class Ovelha extends Animal{
     public void tentaReproduzir() throws AnimalReproduziuException{
         Random rand = new Random();
         /* sorteia numero de 0 a 99 (100 numeros), calhar os primeiros quatro equivale a probabilidade de 4% */
-        if (rand.nextInt(100) < 4 && energia > 2) {
+        if (rand.nextInt(100) < 4) {
             throw new AnimalReproduziuException();
         }
             
