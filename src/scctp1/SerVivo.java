@@ -11,16 +11,16 @@ package scctp1;
  * @author MiguelDiogo
  */
 public abstract class SerVivo {
-    protected int energia;
+    protected double energia;
 
     public SerVivo() {
     }
 
-    public int getEnergia() {
+    public double getEnergia() {
         return energia;
     }
 
-    public void setEnergia(int energia) {
+    public void setEnergia(double energia) {
         this.energia = energia;
     }
     

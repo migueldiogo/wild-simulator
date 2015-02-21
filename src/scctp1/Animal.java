@@ -33,7 +33,7 @@ public abstract class Animal extends SerVivo {
         this.mundo = mundo;
     }
     
-    public Animal(Mundo mundo, int energia) {
+    public Animal(Mundo mundo, double energia) {
         Random rand = new Random();
         /* sorteia coordX e coordY de 0 a 50 (inclusive) */
         coordenada = new PontoToroidal2D(rand.nextInt(51), rand.nextInt(51));
