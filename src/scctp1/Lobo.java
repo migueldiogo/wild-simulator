@@ -75,13 +75,6 @@ public class Lobo extends Animal{
 
     @Override
     public void come() {
-<<<<<<< HEAD
-        /* lobo come uma ovelha inteira sem partilhar */
-        if (!mundo.getOvelhas(this).isEmpty() && energia > 0) {
-            /* primeira ovelha que encontra */
-            mundo.getOvelhas().remove(mundo.getOvelhas(this).get(0));
-            energia += 20;
-=======
         if (!mundo.getOvelhas(this).isEmpty() && energia > 0) {
             double energiaTotal = 0;
             int numLobosLocais = mundo.getLobos(this).size();
@@ -92,11 +85,9 @@ public class Lobo extends Animal{
             for (Lobo lobo : mundo.getLobos(this)) {
                 lobo.setEnergia(lobo.getEnergia() + energiaTotal/numLobosLocais);
             } 
->>>>>>> ArraysMerged
         } 
     }
 
-    @Override
     public String identifica() {
         return "Lobo";
     }
