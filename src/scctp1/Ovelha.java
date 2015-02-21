@@ -28,7 +28,7 @@ public class Ovelha extends Animal{
         energia = rand.nextInt(8);
     }
 
-    public Ovelha(Mundo mundo, int energia) {
+    public Ovelha(Mundo mundo, double energia) {
         super(mundo, energia);
     }
 
@@ -38,7 +38,7 @@ public class Ovelha extends Animal{
         energia = rand.nextInt(8);
     }
     
-    public Ovelha(Mundo mundo, int energia, int coordX, int coordY) {
+    public Ovelha(Mundo mundo, double energia, int coordX, int coordY) {
         super(mundo, coordX, coordY);
         this.energia = energia;
 

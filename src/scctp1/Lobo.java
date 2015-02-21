@@ -28,7 +28,7 @@ public class Lobo extends Animal{
         energia = rand.nextInt(30);
     }
 
-    public Lobo(Mundo mundo, int energia) {
+    public Lobo(Mundo mundo, double energia) {
         super(mundo, energia);
     }
     
@@ -41,7 +41,7 @@ public class Lobo extends Animal{
        
     }
     
-    public Lobo(Mundo mundo, int energia, int coordX, int coordY) {
+    public Lobo(Mundo mundo, double energia, int coordX, int coordY) {
         super(mundo, coordX, coordY);
         this.energia = energia;
 
@@ -75,11 +75,24 @@ public class Lobo extends Animal{
 
     @Override
     public void come() {
+<<<<<<< HEAD
         /* lobo come uma ovelha inteira sem partilhar */
         if (!mundo.getOvelhas(this).isEmpty() && energia > 0) {
             /* primeira ovelha que encontra */
             mundo.getOvelhas().remove(mundo.getOvelhas(this).get(0));
             energia += 20;
+=======
+        if (!mundo.getOvelhas(this).isEmpty() && energia > 0) {
+            double energiaTotal = 0;
+            int numLobosLocais = mundo.getLobos(this).size();
+            for (Ovelha ovelha : mundo.getOvelhas(this)) {
+                energiaTotal += 20;
+                mundo.getOvelhas().remove(ovelha);
+            }
+            for (Lobo lobo : mundo.getLobos(this)) {
+                lobo.setEnergia(lobo.getEnergia() + energiaTotal/numLobosLocais);
+            } 
+>>>>>>> ArraysMerged
         } 
     }
 

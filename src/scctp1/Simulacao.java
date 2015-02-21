@@ -27,6 +27,13 @@ public class Simulacao {
 
     }
     
+    public Simulacao(double numUnidadesCicloFita, double numLimiteUnidadesTempo, double unidadeTempoEmSegundos, Mundo mundo) {
+        this.numUnidadesCicloFita = numUnidadesCicloFita;
+        this.numLimiteUnidadesTempo = numLimiteUnidadesTempo;
+        this.unidadeTempoEmSegundos = unidadeTempoEmSegundos;
+        this.mundo = mundo;
+    }
+    
     public void run() { 
         int i,j;
         double timeInicio = System.currentTimeMillis()/1000;
