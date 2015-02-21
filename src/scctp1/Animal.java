@@ -112,6 +112,5 @@ public abstract class Animal extends SerVivo {
     
     public abstract void ressuscita();
     
-    public abstract String identifica();
     
 }

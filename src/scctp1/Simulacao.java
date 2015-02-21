@@ -5,8 +5,17 @@
  */
 package scctp1;
 
-import java.util.Iterator;
+import java.awt.BorderLayout;
 import java.util.ListIterator;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.WindowConstants;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 
 /**
@@ -35,6 +44,13 @@ public class Simulacao {
     }
     
     public void run() { 
+        JFrame frame = new JFrame();
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+        
+        DefaultCategoryDataset line_chart_dataset = new DefaultCategoryDataset(); 
+
+        
         int i,j;
         double timeInicio = System.currentTimeMillis()/1000;
         int contadorDeAnalises = 0;
@@ -86,12 +102,28 @@ public class Simulacao {
                         }
                         
                     }
-                    
+                 
                 System.out.println("Ovelhas: " + mundo.getOvelhas().size()+ ", Lobos: " + mundo.getLobos().size() + 
                                     ", Casas com Vegestacao: " + mundo.getNumeroVegestacaoTotal());
+                line_chart_dataset.addValue((double)mundo.getNumeroLobos(), "lobos", "" + contadorDeAnalises);
+                line_chart_dataset.addValue((double)mundo.getNumeroOvelhas(), "ovelhas", "" + contadorDeAnalises);
+                line_chart_dataset.addValue((double)mundo.getNumeroVegestacaoTotal(), "vegestacao", "" + contadorDeAnalises);
+
+
                 contadorDeAnalises++;
             }
+
         }
+        JFreeChart lineChartObject = ChartFactory.createLineChart("Mundo","Unidades de Tempo","Contagem",line_chart_dataset,PlotOrientation.VERTICAL,true,true,false); 
+        ChartPanel chartPanel = new ChartPanel(lineChartObject);    
+        panel.add(chartPanel, BorderLayout.CENTER);
+        lineChartObject.getCategoryPlot().getDomainAxis().setTickLabelsVisible(false);
+        lineChartObject.getCategoryPlot().getDomainAxis().setTickMarksVisible(false);
+        frame.add(panel);
+        frame.pack();
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+
     }
     
 }

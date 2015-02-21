@@ -23,8 +23,6 @@ public class Mundo {
      * Largura do mundo (dimensão horizontal)
      */
     private int largura;
-    private int numeroOvelhas;
-    private int numeroLobos;
     private ArrayList<Ovelha> ovelhas;
     private ArrayList<Lobo> lobos;
     private Vegestacao[][] vegestacao;
@@ -33,8 +31,8 @@ public class Mundo {
     public Mundo() {
         int i, j;
         Random rand = new Random();
-        numeroLobos = 30;
-        numeroOvelhas = 100;
+        int numeroLobos = 30;
+        int numeroOvelhas = 100;
         largura = 51;
         comprimento = 51;
         vegestacao = new Vegestacao[largura][comprimento];
@@ -73,8 +71,6 @@ public class Mundo {
 
     public Mundo(int numeroLobos, int numeroOvelhas) {
         int i, j;
-        this.numeroLobos = numeroLobos;
-        this.numeroOvelhas = numeroOvelhas;
         Random rand = new Random();
         largura = 51;
         comprimento = 51;
@@ -95,7 +91,7 @@ public class Mundo {
         
         
         /* insere aleatoriamente x lobos no mundo */
-        for (i = 0; i < this.numeroLobos ; i++) {
+        for (i = 0; i < numeroLobos ; i++) {
             int coordX = rand.nextInt(51);
             int coordY = rand.nextInt(51);
 
@@ -104,7 +100,7 @@ public class Mundo {
         }
         
         /* insere aleatoriamente y ovelhas no mundo */
-        for (i = 0; i < this.numeroOvelhas ; i++) {
+        for (i = 0; i < numeroOvelhas ; i++) {
             int coordX = rand.nextInt(51);
             int coordY = rand.nextInt(51);
 
@@ -115,8 +111,6 @@ public class Mundo {
     
     public Mundo(int numeroLobos, int numeroOvelhas, int largura, int comprimento) {
         int i, j;
-        this.numeroLobos = numeroLobos;
-        this.numeroOvelhas = numeroOvelhas;
         Random rand = new Random();
         this.largura = largura;
         this.comprimento = comprimento;
@@ -137,7 +131,7 @@ public class Mundo {
         
         
         /* insere aleatoriamente x lobos no mundo */
-        for (i = 0; i < this.numeroLobos ; i++) {
+        for (i = 0; i < numeroLobos ; i++) {
             int coordX = rand.nextInt(largura);
             int coordY = rand.nextInt(comprimento);
 
@@ -146,7 +140,7 @@ public class Mundo {
         }
         
         /* insere aleatoriamente y ovelhas no mundo */
-        for (i = 0; i < this.numeroOvelhas ; i++) {
+        for (i = 0; i < numeroOvelhas ; i++) {
             int coordX = rand.nextInt(largura);
             int coordY = rand.nextInt(comprimento);
 
@@ -166,11 +160,11 @@ public class Mundo {
     }
 
     public int getNumeroOvelhas() {
-        return numeroOvelhas;
+        return ovelhas.size();
     }
 
     public int getNumeroLobos() {
-        return numeroLobos;
+        return lobos.size();
     }
     
 
@@ -235,27 +229,6 @@ public class Mundo {
     
     
     
-    /*
-    public int getNumeroOvelhasTotal() {
-        int soma = 0;
-        for (int i = 0; i < quadrados.length; i++) {
-            for (int j = 0; j < quadrados[0].length; j++) {
-                soma += quadrados[i][j].getOvelhas().size();
-            }
-        }
-        return soma;
-    }
-    
-    public int getNumeroLobosTotal() {
-        int soma = 0;
-        for (int i = 0; i < quadrados.length; i++) {
-            for (int j = 0; j < quadrados[0].length; j++) {
-                soma += quadrados[i][j].getLobos().size();
-            }
-        }
-        return soma;
-    }
-    */
     public int getNumeroVegestacaoTotal() {
         int soma = 0;
         for (int i = 0; i < vegestacao.length; i++) {

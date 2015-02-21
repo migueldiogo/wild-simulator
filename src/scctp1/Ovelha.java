@@ -71,7 +71,7 @@ public class Ovelha extends Animal{
     @Override
     public void come() {
         Vegestacao vegestacaoLocal = mundo.getVegestacao(this);
-        if (vegestacaoLocal.isReady() && energia > 0) {
+        if (vegestacaoLocal.isReady()) {
             int numOvelhasLocais = mundo.getOvelhas(this).size();
             for (Ovelha ovelha : mundo.getOvelhas(this)) {
                 ovelha.setEnergia(ovelha.getEnergia() + vegestacaoLocal.getEnergia()/numOvelhasLocais);
@@ -80,10 +80,6 @@ public class Ovelha extends Animal{
         }
             
     }
-    
-    @Override
-    public String identifica() {
-        return "Ovelha";
-    }
+
     
 }

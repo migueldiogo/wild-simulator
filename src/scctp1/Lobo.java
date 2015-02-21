@@ -65,7 +65,6 @@ public class Lobo extends Animal{
         Random rand = new Random();
         /* sorteia numero de 0 a 99 (100 numeros), calhar os primeiros cinco equivale a probabilidade de 5% */
         if (rand.nextInt(100) < 5) {
-            System.out.println("Reproduzi" + " eu - " + coordenada.getCoordX() + " " + coordenada.getCoordY() + ", ele " + coordenada.getCoordX() + " " + coordenada.getCoordY());
             throw new AnimalReproduziuException();
         }
 
@@ -75,7 +74,7 @@ public class Lobo extends Animal{
 
     @Override
     public void come() {
-        if (!mundo.getOvelhas(this).isEmpty() && energia > 0) {
+        if (!mundo.getOvelhas(this).isEmpty()) {
             System.out.println("Lobo - comi");
             double energiaTotal = 0;
             int numLobosLocais = mundo.getLobos(this).size();
@@ -89,7 +88,4 @@ public class Lobo extends Animal{
         } 
     }
 
-    public String identifica() {
-        return "Lobo";
-    }
 }
