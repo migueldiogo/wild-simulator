@@ -76,12 +76,12 @@ public abstract class Animal extends SerVivo {
         
         int dX, dY;
         do {
-            dX = rand.nextInt(2);       // move-se zero ou uma casa na horizontal
-            dY = rand.nextInt(2);       // move-se zero ou uma casa na horizontal
+            dX = rand.nextInt((1 - (-1)) + 1) + (-1);       // move-se zero ou uma casa na horizontal
+            dY = rand.nextInt((1 - (-1)) + 1) + (-1);       // move-se zero ou uma casa na horizontal
         }
         while (dX == 0 && dY == 0);
 
-
+        //System.out.println(dX + " " + dY);
         //System.out.print("movi de " + coordenada.getCoordX() + " " + coordenada.getCoordY());
         coordenada.adiciona(mundo, dX, dY);   // move animal
         //System.out.println(" para " + coordenada.getCoordX() + " " + coordenada.getCoordY());

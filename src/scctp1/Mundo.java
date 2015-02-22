@@ -1,7 +1,12 @@
 package scctp1;
 
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.ListIterator;
 import java.util.Random;
 
 /*
@@ -212,7 +217,15 @@ public class Mundo {
     }
     
     public Vegestacao getVegestacao(Animal animal) {
-        return vegestacao[animal.getCoordenadas().getCoordX()][animal.getCoordenadas().getCoordY()];
+        Vegestacao veges = null;
+        try {
+            veges = vegestacao[animal.getCoordenadas().getCoordX()][animal.getCoordenadas().getCoordY()];
+        }
+        catch(ArrayIndexOutOfBoundsException e) {
+            System.out.println(animal.getCoordenadas().getCoordX() + " -- " + animal.getCoordenadas().getCoordY());
+        }
+        
+        return veges;
     }
 
     public void setOvelhas(ArrayList<Ovelha> ovelhas) {
@@ -249,4 +262,43 @@ public class Mundo {
             }
         }    
     }
+    
+    
+    
+    public void desenha (Graphics g) {
+        Rectangle r = g.getClipBounds();
+        int dX = (int)(r.getWidth()/(double)largura);
+        int dY = (int)(r.getHeight()/(double)comprimento);
+
+        // desenhar a grelha
+        for(int i = 0; i <= largura; i++)
+                g.drawLine(i*dX, 0, i*dX, comprimento*dY);
+        for(int i = 0; i<= comprimento; i++)
+                g.drawLine(0, i*dY, largura*dX, i*dY);
+
+        for (int i = 0; i < vegestacao.length; i++) {
+            for (int j = 0; j < vegestacao[0].length; j++) {
+                if (vegestacao[i][j].isReady()) {
+                    g.setColor(Color.GREEN);
+                    g.fillRect(i*dX+1, j*dY+1, dX -1, dY -1);
+                }
+            }
+        }
+        
+        
+        //desenhar os objectos
+        ListIterator<Ovelha> itOvelhas = ovelhas.listIterator();
+        while(itOvelhas.hasNext()) {
+            Ovelha ovelhaAtual = itOvelhas.next();
+            g.setColor(Color.BLACK);
+            g.fillRect(ovelhaAtual.getCoordenadas().getCoordX()*dX+dX/4, ovelhaAtual.getCoordenadas().getCoordY()*dY+dY/4, dX/2, dY/2);
+        }
+       
+        for(Lobo lobo : lobos) {
+            g.setColor(Color.RED);
+            g.fillRect(lobo.getCoordenadas().getCoordX()*dX+dX/4, lobo.getCoordenadas().getCoordY()*dY+dY/4, dX/2, dY/2);
+        }
+             
+    }
+    
 }

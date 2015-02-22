@@ -6,16 +6,19 @@
 package scctp1;
 
 import java.awt.BorderLayout;
+import java.awt.Container;
 import java.util.ListIterator;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
+import javax.swing.border.EmptyBorder;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
+import scctp1.gui.Desenho;
 
 
 /**
@@ -43,6 +46,14 @@ public class Simulacao {
         this.mundo = mundo;
     }
     
+
+    final Runnable doHelloWorld = new Runnable() {
+        public void run() {
+            System.out.println("Hello World on " + Thread.currentThread());
+        }
+    };
+    
+    
     public void run() { 
         JFrame frame = new JFrame();
         JPanel panel = new JPanel();
@@ -50,6 +61,19 @@ public class Simulacao {
         
         DefaultCategoryDataset line_chart_dataset = new DefaultCategoryDataset(); 
 
+        /* GRELHA DE SIMULACAO */
+        JFrame f = new JFrame();
+        f.setSize(mundo.getLargura()*15,mundo.getComprimento()*15);
+        f.setTitle("Janela com rectângulo");
+        Container c = f.getContentPane(); // superfície de desenho
+
+        Desenho desenho = new Desenho(mundo);
+        desenho.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+        c.add(desenho);
+        f.setVisible(true);
+        
+        
         
         int i,j;
         double timeInicio = System.currentTimeMillis()/1000;
@@ -111,6 +135,7 @@ public class Simulacao {
 
 
                 contadorDeAnalises++;
+                desenho.repaint();
             }
 
         }

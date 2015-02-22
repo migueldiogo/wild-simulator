@@ -5,6 +5,11 @@
  */
 package scctp1;
 
+import java.awt.Container;
+import javax.swing.JFrame;
+import javax.swing.border.EmptyBorder;
+import scctp1.gui.Desenho;
+
 /**
  *
  * @author MiguelDiogo
@@ -16,11 +21,16 @@ public class SccTp1 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+ 
+      
         Mundo mundo = new Mundo(30, 100);
         
+
+
         Simulacao sim = new Simulacao(1, 5000, 0.001, mundo);
-        //Simulacao sim = new Simulacao(1, 5, 1, mundo);
+        
         sim.run();
+                
     }
     
 }

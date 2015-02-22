@@ -1,6 +1,7 @@
 package scctp1;
 
 
+import java.util.ListIterator;
 import java.util.Random;
 
 /*
@@ -78,10 +79,13 @@ public class Lobo extends Animal{
             System.out.println("Lobo - comi");
             double energiaTotal = 0;
             int numLobosLocais = mundo.getLobos(this).size();
-            for (Ovelha ovelha : mundo.getOvelhas(this)) {
+            ListIterator<Ovelha> itOvelhas = mundo.getOvelhas(this).listIterator();
+            while (itOvelhas.hasNext()) {
+                itOvelhas.next();
                 energiaTotal += 20;
-                mundo.getOvelhas().remove(ovelha);
+                itOvelhas.remove();
             }
+            ListIterator<Lobo> itLobos = mundo.getLobos(this).listIterator();
             for (Lobo lobo : mundo.getLobos(this)) {
                 lobo.setEnergia(lobo.getEnergia() + energiaTotal/numLobosLocais);
             } 
