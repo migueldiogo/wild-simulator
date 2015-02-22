@@ -79,13 +79,10 @@ public class Lobo extends Animal{
             System.out.println("Lobo - comi");
             double energiaTotal = 0;
             int numLobosLocais = mundo.getLobos(this).size();
-            ListIterator<Ovelha> itOvelhas = mundo.getOvelhas(this).listIterator();
-            while (itOvelhas.hasNext()) {
-                itOvelhas.next();
+            for (Ovelha ovelha : mundo.getOvelhas(this)) {
                 energiaTotal += 20;
-                itOvelhas.remove();
+                mundo.getOvelhas().remove(ovelha);
             }
-            ListIterator<Lobo> itLobos = mundo.getLobos(this).listIterator();
             for (Lobo lobo : mundo.getLobos(this)) {
                 lobo.setEnergia(lobo.getEnergia() + energiaTotal/numLobosLocais);
             } 

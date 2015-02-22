@@ -9,6 +9,7 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.util.ListIterator;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
@@ -47,11 +48,6 @@ public class Simulacao {
     }
     
 
-    final Runnable doHelloWorld = new Runnable() {
-        public void run() {
-            System.out.println("Hello World on " + Thread.currentThread());
-        }
-    };
     
     
     public void run() { 
@@ -97,32 +93,28 @@ public class Simulacao {
                 
             
             if (System.currentTimeMillis()/1000 >= timeInicio+unidadeTempoEmSegundos*numUnidadesCicloFita*contadorDeAnalises) {
-                    ListIterator<Ovelha> itOvelha = mundo.getOvelhas().listIterator();
-                    while (itOvelha.hasNext()) {
-                        Ovelha ovelhaAtual = itOvelha.next();
+                    for (Ovelha ovelha : mundo.getOvelhas()) {
                         try {
-                            ovelhaAtual.move();
+                            ovelha.move();
                         }
                         catch (AnimalMorreuException e) {
-                            itOvelha.remove();
+                            mundo.getOvelhas().remove(ovelha);
                         }
                         catch (AnimalReproduziuException e) {
-                            itOvelha.add(new Ovelha(mundo, ovelhaAtual.getEnergia()/2, ovelhaAtual.getCoordenadas().getCoordX(), ovelhaAtual.getCoordenadas().getCoordY()));
+                            mundo.getOvelhas().add(new Ovelha(mundo, ovelha.getEnergia()/2, ovelha.getCoordenadas().getCoordX(), ovelha.getCoordenadas().getCoordY()));
                         }
                         
                     }
-                    ListIterator<Lobo> itLobo = mundo.getLobos().listIterator();
-                    while (itLobo.hasNext()) {
-                        Lobo loboAtual = itLobo.next();
+                    for (Lobo lobo : mundo.getLobos()) {
 
                         try {
-                            loboAtual.move();
+                            lobo.move();
                         }
                         catch (AnimalMorreuException e) {
-                            itLobo.remove();
+                            mundo.getLobos().remove(lobo);
                         }
                         catch (AnimalReproduziuException e) {
-                            itLobo.add(new Lobo(mundo, loboAtual.getEnergia()/2, loboAtual.getCoordenadas().getCoordX(), loboAtual.getCoordenadas().getCoordY()));
+                            mundo.getLobos().add(new Lobo(mundo, lobo.getEnergia()/2, lobo.getCoordenadas().getCoordX(), lobo.getCoordenadas().getCoordY()));
                         }
                         
                     }
@@ -136,19 +128,24 @@ public class Simulacao {
 
                 contadorDeAnalises++;
                 desenho.repaint();
+                
+                
+            JFreeChart lineChartObject = ChartFactory.createLineChart("Mundo","Unidades de Tempo","Contagem",line_chart_dataset,PlotOrientation.VERTICAL,true,true,false); 
+            ChartPanel chartPanel = new ChartPanel(lineChartObject);    
+            panel.add(chartPanel, BorderLayout.CENTER);
+            lineChartObject.getCategoryPlot().getDomainAxis().setTickLabelsVisible(false);
+            lineChartObject.getCategoryPlot().getDomainAxis().setTickMarksVisible(false);
+            frame.add(panel);
+            frame.pack();
+            frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            frame.setVisible(true);
             }
 
         }
-        JFreeChart lineChartObject = ChartFactory.createLineChart("Mundo","Unidades de Tempo","Contagem",line_chart_dataset,PlotOrientation.VERTICAL,true,true,false); 
-        ChartPanel chartPanel = new ChartPanel(lineChartObject);    
-        panel.add(chartPanel, BorderLayout.CENTER);
-        lineChartObject.getCategoryPlot().getDomainAxis().setTickLabelsVisible(false);
-        lineChartObject.getCategoryPlot().getDomainAxis().setTickMarksVisible(false);
-        frame.add(panel);
-        frame.pack();
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setVisible(true);
+
+    JOptionPane.showMessageDialog(c, "Simulação terminada!", "Simulação Terminada", JOptionPane.INFORMATION_MESSAGE);
 
     }
+    
     
 }

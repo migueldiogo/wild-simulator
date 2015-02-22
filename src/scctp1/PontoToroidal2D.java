@@ -74,7 +74,6 @@ public class PontoToroidal2D {
     public void adiciona(Mundo mundo, int dX, int dY) {
             coordX = (coordX + dX < 0) ? coordX + dX + mundo.getLargura() : (coordX + dX)%mundo.getLargura();
             coordY = (coordY + dY < 0) ? coordY + dY + mundo.getComprimento() : (coordY + dY)%mundo.getComprimento();
-            System.out.println(coordX + ", " + coordY);
     }
     
     

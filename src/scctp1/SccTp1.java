@@ -23,12 +23,13 @@ public class SccTp1 {
         // TODO code application logic here
  
       
-        Mundo mundo = new Mundo(30, 100);
+        Mundo mundo = new Mundo(30, 100, 51, 51);
         
 
 
-        Simulacao sim = new Simulacao(1, 5000, 0.001, mundo);
-        
+        //Simulacao sim = new Simulacao(1, 5000, 0.001, mundo);
+        Simulacao sim = new Simulacao(1, 60, 1, mundo);
+
         sim.run();
                 
     }
