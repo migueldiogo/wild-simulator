@@ -282,17 +282,21 @@ public class Mundo {
 
         for (int i = 0; i < vegestacao.length; i++) {
             for (int j = 0; j < vegestacao[0].length; j++) {
-                if (vegestacao[i][j].isReady()) {
-                    g.setColor(Color.GREEN);
-                    g.fillRect(i*dX+1, j*dY+1, dX -1, dY -1);
-                }
+                if (vegestacao[i][j].isReady())
+                    g.setColor(new Color(0, 128, 0));
+                else
+                    g.setColor(new Color(255, 204, 102));
+
+                    
+                g.fillRect(i*dX+1, j*dY+1, dX -1, dY -1);
+
             }
         }
         
         
         //desenhar os objectos
         for(Ovelha ovelha : ovelhas) {
-            g.setColor(Color.BLACK);
+            g.setColor(Color.BLUE);
             g.fillRect(ovelha.getCoordenadas().getCoordX()*dX+dX/4, ovelha.getCoordenadas().getCoordY()*dY+dY/4, dX/2, dY/2);
         }
        

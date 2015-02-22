@@ -24,11 +24,13 @@ public class SccTp1 {
  
       
         Mundo mundo = new Mundo(30, 100, 51, 51);
-        
+        //Mundo mundo = new Mundo(100, 100, 51, 51);
+       
 
 
-        //Simulacao sim = new Simulacao(1, 5000, 0.001, mundo);
-        Simulacao sim = new Simulacao(1, 60, 1, mundo);
+        //Simulacao sim = new Simulacao(1, 5000, 0.006, mundo);
+        //Simulacao sim = new Simulacao(1, 60, 1, mundo);
+        Simulacao sim = new Simulacao(1, 5000, 0.024, mundo);
 
         sim.run();
                 

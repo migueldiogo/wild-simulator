@@ -6,17 +6,14 @@
 package scctp1;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
-import java.util.ListIterator;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
-import javax.swing.border.EmptyBorder;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 import scctp1.gui.Desenho;
@@ -51,6 +48,7 @@ public class Simulacao {
     
     
     public void run() { 
+        
         JFrame frame = new JFrame();
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
@@ -58,16 +56,14 @@ public class Simulacao {
         DefaultCategoryDataset line_chart_dataset = new DefaultCategoryDataset(); 
 
         /* GRELHA DE SIMULACAO */
-        JFrame f = new JFrame();
-        f.setSize(mundo.getLargura()*15,mundo.getComprimento()*15);
-        f.setTitle("Janela com rectângulo");
-        Container c = f.getContentPane(); // superfície de desenho
-
+        JFrame frameWorld = new JFrame();
+        frameWorld.setSize(mundo.getLargura()*15,mundo.getComprimento()*15);
+        frameWorld.setTitle("Simulação Gráfica");
         Desenho desenho = new Desenho(mundo);
-        desenho.setBorder(new EmptyBorder(5, 5, 5, 5));
-
-        c.add(desenho);
-        f.setVisible(true);
+        
+        frameWorld.add(desenho);
+        frameWorld.setLocationRelativeTo(null);
+        frameWorld.setVisible(true);
         
         
         
@@ -121,6 +117,7 @@ public class Simulacao {
                  
                 System.out.println("Ovelhas: " + mundo.getOvelhas().size()+ ", Lobos: " + mundo.getLobos().size() + 
                                     ", Casas com Vegestacao: " + mundo.getNumeroVegestacaoTotal());
+                
                 line_chart_dataset.addValue((double)mundo.getNumeroLobos(), "lobos", "" + contadorDeAnalises);
                 line_chart_dataset.addValue((double)mundo.getNumeroOvelhas(), "ovelhas", "" + contadorDeAnalises);
                 line_chart_dataset.addValue((double)mundo.getNumeroVegestacaoTotal(), "vegestacao", "" + contadorDeAnalises);
@@ -130,20 +127,21 @@ public class Simulacao {
                 desenho.repaint();
                 
                 
-            JFreeChart lineChartObject = ChartFactory.createLineChart("Mundo","Unidades de Tempo","Contagem",line_chart_dataset,PlotOrientation.VERTICAL,true,true,false); 
-            ChartPanel chartPanel = new ChartPanel(lineChartObject);    
-            panel.add(chartPanel, BorderLayout.CENTER);
-            lineChartObject.getCategoryPlot().getDomainAxis().setTickLabelsVisible(false);
-            lineChartObject.getCategoryPlot().getDomainAxis().setTickMarksVisible(false);
-            frame.add(panel);
-            frame.pack();
-            frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-            frame.setVisible(true);
+
+                        
             }
 
         }
-
-    JOptionPane.showMessageDialog(c, "Simulação terminada!", "Simulação Terminada", JOptionPane.INFORMATION_MESSAGE);
+        JFreeChart lineChartObject = ChartFactory.createLineChart("Mundo","Unidades de Tempo","Contagem",line_chart_dataset,PlotOrientation.VERTICAL,true,true,false); 
+        ChartPanel chartPanel = new ChartPanel(lineChartObject);    
+        panel.add(chartPanel, BorderLayout.CENTER);
+        lineChartObject.getCategoryPlot().getDomainAxis().setTickLabelsVisible(false);
+        lineChartObject.getCategoryPlot().getDomainAxis().setTickMarksVisible(false);
+        frame.add(panel);
+        frame.pack();
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+        JOptionPane.showMessageDialog(frameWorld, "Simulação terminada!", "Simulação Terminada", JOptionPane.INFORMATION_MESSAGE);
 
     }
     
