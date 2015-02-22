@@ -6,16 +6,20 @@
 package scctp1;
 
 import java.awt.BorderLayout;
+import java.awt.Container;
 import java.util.ListIterator;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
+import javax.swing.border.EmptyBorder;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
+import scctp1.gui.Desenho;
 
 
 /**
@@ -43,6 +47,9 @@ public class Simulacao {
         this.mundo = mundo;
     }
     
+
+    
+    
     public void run() { 
         JFrame frame = new JFrame();
         JPanel panel = new JPanel();
@@ -50,6 +57,19 @@ public class Simulacao {
         
         DefaultCategoryDataset line_chart_dataset = new DefaultCategoryDataset(); 
 
+        /* GRELHA DE SIMULACAO */
+        JFrame f = new JFrame();
+        f.setSize(mundo.getLargura()*15,mundo.getComprimento()*15);
+        f.setTitle("Janela com rectângulo");
+        Container c = f.getContentPane(); // superfície de desenho
+
+        Desenho desenho = new Desenho(mundo);
+        desenho.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+        c.add(desenho);
+        f.setVisible(true);
+        
+        
         
         int i,j;
         double timeInicio = System.currentTimeMillis()/1000;
@@ -73,32 +93,28 @@ public class Simulacao {
                 
             
             if (System.currentTimeMillis()/1000 >= timeInicio+unidadeTempoEmSegundos*numUnidadesCicloFita*contadorDeAnalises) {
-                    ListIterator<Ovelha> itOvelha = mundo.getOvelhas().listIterator();
-                    while (itOvelha.hasNext()) {
-                        Ovelha ovelhaAtual = itOvelha.next();
+                    for (Ovelha ovelha : mundo.getOvelhas()) {
                         try {
-                            ovelhaAtual.move();
+                            ovelha.move();
                         }
                         catch (AnimalMorreuException e) {
-                            itOvelha.remove();
+                            mundo.getOvelhas().remove(ovelha);
                         }
                         catch (AnimalReproduziuException e) {
-                            itOvelha.add(new Ovelha(mundo, ovelhaAtual.getEnergia()/2, ovelhaAtual.getCoordenadas().getCoordX(), ovelhaAtual.getCoordenadas().getCoordY()));
+                            mundo.getOvelhas().add(new Ovelha(mundo, ovelha.getEnergia()/2, ovelha.getCoordenadas().getCoordX(), ovelha.getCoordenadas().getCoordY()));
                         }
                         
                     }
-                    ListIterator<Lobo> itLobo = mundo.getLobos().listIterator();
-                    while (itLobo.hasNext()) {
-                        Lobo loboAtual = itLobo.next();
+                    for (Lobo lobo : mundo.getLobos()) {
 
                         try {
-                            loboAtual.move();
+                            lobo.move();
                         }
                         catch (AnimalMorreuException e) {
-                            itLobo.remove();
+                            mundo.getLobos().remove(lobo);
                         }
                         catch (AnimalReproduziuException e) {
-                            itLobo.add(new Lobo(mundo, loboAtual.getEnergia()/2, loboAtual.getCoordenadas().getCoordX(), loboAtual.getCoordenadas().getCoordY()));
+                            mundo.getLobos().add(new Lobo(mundo, lobo.getEnergia()/2, lobo.getCoordenadas().getCoordX(), lobo.getCoordenadas().getCoordY()));
                         }
                         
                     }
@@ -111,19 +127,25 @@ public class Simulacao {
 
 
                 contadorDeAnalises++;
+                desenho.repaint();
+                
+                
+            JFreeChart lineChartObject = ChartFactory.createLineChart("Mundo","Unidades de Tempo","Contagem",line_chart_dataset,PlotOrientation.VERTICAL,true,true,false); 
+            ChartPanel chartPanel = new ChartPanel(lineChartObject);    
+            panel.add(chartPanel, BorderLayout.CENTER);
+            lineChartObject.getCategoryPlot().getDomainAxis().setTickLabelsVisible(false);
+            lineChartObject.getCategoryPlot().getDomainAxis().setTickMarksVisible(false);
+            frame.add(panel);
+            frame.pack();
+            frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            frame.setVisible(true);
             }
 
         }
-        JFreeChart lineChartObject = ChartFactory.createLineChart("Mundo","Unidades de Tempo","Contagem",line_chart_dataset,PlotOrientation.VERTICAL,true,true,false); 
-        ChartPanel chartPanel = new ChartPanel(lineChartObject);    
-        panel.add(chartPanel, BorderLayout.CENTER);
-        lineChartObject.getCategoryPlot().getDomainAxis().setTickLabelsVisible(false);
-        lineChartObject.getCategoryPlot().getDomainAxis().setTickMarksVisible(false);
-        frame.add(panel);
-        frame.pack();
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setVisible(true);
+
+    JOptionPane.showMessageDialog(c, "Simulação terminada!", "Simulação Terminada", JOptionPane.INFORMATION_MESSAGE);
 
     }
+    
     
 }

@@ -72,8 +72,8 @@ public class PontoToroidal2D {
      * @param dY unidades a transladar na vertical.
      */
     public void adiciona(Mundo mundo, int dX, int dY) {
-            coordX = (coordX + dX)%mundo.getLargura();
-            coordY = (coordY + dY)%mundo.getComprimento();
+            coordX = (coordX + dX < 0) ? coordX + dX + mundo.getLargura() : (coordX + dX)%mundo.getLargura();
+            coordY = (coordY + dY < 0) ? coordY + dY + mundo.getComprimento() : (coordY + dY)%mundo.getComprimento();
     }
     
     

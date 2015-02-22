@@ -1,8 +1,15 @@
 package scctp1;
 
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.ListIterator;
 import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -23,8 +30,8 @@ public class Mundo {
      * Largura do mundo (dimensão horizontal)
      */
     private int largura;
-    private ArrayList<Ovelha> ovelhas;
-    private ArrayList<Lobo> lobos;
+    private CopyOnWriteArrayList<Ovelha> ovelhas;
+    private CopyOnWriteArrayList<Lobo> lobos;
     private Vegestacao[][] vegestacao;
 
     
@@ -36,8 +43,8 @@ public class Mundo {
         largura = 51;
         comprimento = 51;
         vegestacao = new Vegestacao[largura][comprimento];
-        ovelhas = new ArrayList();
-        lobos = new ArrayList();
+        ovelhas = new CopyOnWriteArrayList();
+        lobos = new CopyOnWriteArrayList();
         
         for (i = 0; i < vegestacao.length; i++) {
             for (j = 0; j < vegestacao[0].length; j++) {
@@ -76,8 +83,8 @@ public class Mundo {
         comprimento = 51;
         vegestacao = new Vegestacao[largura][comprimento];
         
-        ovelhas = new ArrayList();
-        lobos = new ArrayList();
+        ovelhas = new CopyOnWriteArrayList();
+        lobos = new CopyOnWriteArrayList();
         
         for (i = 0; i < vegestacao.length; i++) {
             for (j = 0; j < vegestacao[0].length; j++) {
@@ -116,8 +123,8 @@ public class Mundo {
         this.comprimento = comprimento;
         vegestacao = new Vegestacao[largura][comprimento];
         
-        ovelhas = new ArrayList();
-        lobos = new ArrayList();
+        ovelhas = new CopyOnWriteArrayList();
+        lobos = new CopyOnWriteArrayList();
         
         for (i = 0; i < vegestacao.length; i++) {
             for (j = 0; j < vegestacao[0].length; j++) {
@@ -180,20 +187,22 @@ public class Mundo {
 
     
     
-    public ArrayList<Ovelha> getOvelhas() {
+    public CopyOnWriteArrayList<Ovelha> getOvelhas() {
         return ovelhas;
     }
     
-    public ArrayList<Lobo> getLobos() {
+    public CopyOnWriteArrayList<Lobo> getLobos() {
         return lobos;
     }
 
     /* retorna array de ovelhas cujas coordenadas coincidem com o animal em argumento */
     public ArrayList<Ovelha> getOvelhas(Animal animal) {
         ArrayList<Ovelha> ovelhasRetornadas = new ArrayList();
-        for (Ovelha ovelha : ovelhas) {
-            if (ovelha.getCoordenadas().equals(animal.getCoordenadas()))
-                ovelhasRetornadas.add(ovelha);
+        ListIterator<Ovelha> itOvelhas = ovelhas.listIterator();
+        while(itOvelhas.hasNext()) {
+            Ovelha ovelhaAtual = itOvelhas.next();
+            if (ovelhaAtual.getCoordenadas().equals(animal.getCoordenadas()))
+                ovelhasRetornadas.add(ovelhaAtual);
         } 
         return ovelhasRetornadas;
     }
@@ -212,14 +221,22 @@ public class Mundo {
     }
     
     public Vegestacao getVegestacao(Animal animal) {
-        return vegestacao[animal.getCoordenadas().getCoordX()][animal.getCoordenadas().getCoordY()];
+        Vegestacao veges = null;
+        try {
+            veges = vegestacao[animal.getCoordenadas().getCoordX()][animal.getCoordenadas().getCoordY()];
+        }
+        catch(ArrayIndexOutOfBoundsException e) {
+            System.out.println(animal.getCoordenadas().getCoordX() + " -- " + animal.getCoordenadas().getCoordY());
+        }
+        
+        return veges;
     }
 
-    public void setOvelhas(ArrayList<Ovelha> ovelhas) {
+    public void setOvelhas(CopyOnWriteArrayList<Ovelha> ovelhas) {
         this.ovelhas = ovelhas;
     }
 
-    public void setLobos(ArrayList<Lobo> lobos) {
+    public void setLobos(CopyOnWriteArrayList<Lobo> lobos) {
         this.lobos = lobos;
     }
 
@@ -249,4 +266,44 @@ public class Mundo {
             }
         }    
     }
+    
+    
+    
+    public void desenha (Graphics g) {
+        Rectangle r = g.getClipBounds();
+        int dX = (int)(r.getWidth()/(double)largura);
+        int dY = (int)(r.getHeight()/(double)comprimento);
+
+        // desenhar a grelha
+        for(int i = 0; i <= largura; i++)
+                g.drawLine(i*dX, 0, i*dX, comprimento*dY);
+        for(int i = 0; i<= comprimento; i++)
+                g.drawLine(0, i*dY, largura*dX, i*dY);
+
+        for (int i = 0; i < vegestacao.length; i++) {
+            for (int j = 0; j < vegestacao[0].length; j++) {
+                if (vegestacao[i][j].isReady()) {
+                    g.setColor(Color.GREEN);
+                    g.fillRect(i*dX+1, j*dY+1, dX -1, dY -1);
+                }
+            }
+        }
+        
+        
+        //desenhar os objectos
+        for(Ovelha ovelha : ovelhas) {
+            g.setColor(Color.BLACK);
+            g.fillRect(ovelha.getCoordenadas().getCoordX()*dX+dX/4, ovelha.getCoordenadas().getCoordY()*dY+dY/4, dX/2, dY/2);
+        }
+       
+        for(Lobo lobo : lobos) {
+            g.setColor(Color.RED);
+            g.fillRect(lobo.getCoordenadas().getCoordX()*dX+dX/4, lobo.getCoordenadas().getCoordY()*dY+dY/4, dX/2, dY/2);
+            g.setColor(Color.BLACK);
+            //g.draw
+            //g.drawString("1", lobo.getCoordenadas().getCoordX()*dX+dX/4, lobo.getCoordenadas().getCoordY()*dY+dY);
+        }
+             
+    }
+    
 }
