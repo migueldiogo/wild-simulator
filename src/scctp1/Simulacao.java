@@ -6,6 +6,7 @@
 package scctp1;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -15,6 +16,8 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.CategoryItemRenderer;
+import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 import scctp1.gui.Desenho;
 
@@ -83,7 +86,7 @@ public class Simulacao {
             
                         
             if (System.currentTimeMillis()/1000 >= timeInicio+unidadeTempoEmSegundos*contadorDeUnidadesTempo) {
-                mundo.cresceVegestacao();
+                mundo.crescevegetacao();
                 contadorDeUnidadesTempo++;
             }
                 
@@ -116,16 +119,16 @@ public class Simulacao {
                     }
                  
                 System.out.println("Ovelhas: " + mundo.getOvelhas().size()+ ", Lobos: " + mundo.getLobos().size() + 
-                                    ", Casas com Vegestacao: " + mundo.getNumeroVegestacaoTotal());
+                                    ", Casas com vegetacao: " + mundo.getNumerovegetacaoTotal());
                 
                 line_chart_dataset.addValue((double)mundo.getNumeroLobos(), "lobos", "" + contadorDeAnalises);
                 line_chart_dataset.addValue((double)mundo.getNumeroOvelhas(), "ovelhas", "" + contadorDeAnalises);
-                line_chart_dataset.addValue((double)mundo.getNumeroVegestacaoTotal(), "vegestacao", "" + contadorDeAnalises);
+                line_chart_dataset.addValue((double)mundo.getNumerovegetacaoTotal(), "vegetacao", "" + contadorDeAnalises);
 
 
                 contadorDeAnalises++;
-                desenho.repaint();
-                
+                desenho.paintImmediately(desenho.getX(), desenho.getY(), desenho.getWidth(), desenho.getWidth());
+
                 
 
                         
@@ -137,12 +140,18 @@ public class Simulacao {
         panel.add(chartPanel, BorderLayout.CENTER);
         lineChartObject.getCategoryPlot().getDomainAxis().setTickLabelsVisible(false);
         lineChartObject.getCategoryPlot().getDomainAxis().setTickMarksVisible(false);
+        
+        CategoryItemRenderer renderer = lineChartObject.getCategoryPlot().getRenderer();
+        renderer.setSeriesPaint(2, new Color(0, 128, 0));
+        
         frame.add(panel);
         frame.pack();
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
-        JOptionPane.showMessageDialog(frameWorld, "Simulação terminada!", "Simulação Terminada", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(frameWorld, "Simulação terminada!", "Simulação Terminada", JOptionPane.INFORMATION_MESSAGE);   
 
+        
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
     
     

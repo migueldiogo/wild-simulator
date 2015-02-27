@@ -12,15 +12,15 @@ import java.util.Random;
  *
  * @author MiguelDiogo
  */
-public class Vegestacao extends SerVivo{
+public class Vegetacao extends SerVivo{
     private int crescimento;
     
-    public Vegestacao() {
+    public Vegetacao() {
         crescimento = 1;
         energia = 4;
     }
     
-    public Vegestacao(boolean jaDesenvolvida) {
+    public Vegetacao(boolean jaDesenvolvida) {
         if (jaDesenvolvida) 
             crescimento = 30;
         else {
@@ -48,11 +48,10 @@ public class Vegestacao extends SerVivo{
     }
     
 
-    @Override
     public void morre() {
         crescimento = 1;
     }
     
 
-    
+ 
 }

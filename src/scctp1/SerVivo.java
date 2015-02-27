@@ -24,7 +24,6 @@ public abstract class SerVivo {
         this.energia = energia;
     }
     
-    public abstract void morre();
 
 
     

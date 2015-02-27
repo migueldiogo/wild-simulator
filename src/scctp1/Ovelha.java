@@ -48,15 +48,6 @@ public class Ovelha extends Animal{
     
 
 
-    @Override
-    public void morre() {
-        mundo.getOvelhas().remove(this);
-    }
-    
-    @Override
-    public void ressuscita() {
-        mundo.getOvelhas().add(this);
-    }
 
     @Override
     public void tentaReproduzir() throws AnimalReproduziuException{
@@ -70,13 +61,13 @@ public class Ovelha extends Animal{
 
     @Override
     public void come() {
-        Vegestacao vegestacaoLocal = mundo.getVegestacao(this);
-        if (vegestacaoLocal.isReady()) {
+        Vegetacao vegetacaoLocal = mundo.getvegetacao(this);
+        if (vegetacaoLocal.isReady()) {
             int numOvelhasLocais = mundo.getOvelhas(this).size();
             for (Ovelha ovelha : mundo.getOvelhas(this)) {
-                ovelha.setEnergia(ovelha.getEnergia() + vegestacaoLocal.getEnergia()/numOvelhasLocais);
+                ovelha.setEnergia(ovelha.getEnergia() + vegetacaoLocal.getEnergia()/numOvelhasLocais);
             } 
-            vegestacaoLocal.morre();
+            vegetacaoLocal.morre();
         }
             
     }

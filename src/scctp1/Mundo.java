@@ -32,7 +32,7 @@ public class Mundo {
     private int largura;
     private CopyOnWriteArrayList<Ovelha> ovelhas;
     private CopyOnWriteArrayList<Lobo> lobos;
-    private Vegestacao[][] vegestacao;
+    private Vegetacao[][] vegetacao;
 
     
     public Mundo() {
@@ -42,17 +42,17 @@ public class Mundo {
         int numeroOvelhas = 100;
         largura = 51;
         comprimento = 51;
-        vegestacao = new Vegestacao[largura][comprimento];
+        vegetacao = new Vegetacao[largura][comprimento];
         ovelhas = new CopyOnWriteArrayList();
         lobos = new CopyOnWriteArrayList();
         
-        for (i = 0; i < vegestacao.length; i++) {
-            for (j = 0; j < vegestacao[0].length; j++) {
-                /* probabilidade de haver vegestacao = 50% = 0.5 */
+        for (i = 0; i < vegetacao.length; i++) {
+            for (j = 0; j < vegetacao[0].length; j++) {
+                /* probabilidade de haver vegetacao = 50% = 0.5 */
                 if (rand.nextInt(2) == 0)
-                    vegestacao[i][j] = new Vegestacao(true);
+                    vegetacao[i][j] = new Vegetacao(true);
                 else
-                    vegestacao[i][j] = new Vegestacao(false);
+                    vegetacao[i][j] = new Vegetacao(false);
             }
         }
         
@@ -81,18 +81,18 @@ public class Mundo {
         Random rand = new Random();
         largura = 51;
         comprimento = 51;
-        vegestacao = new Vegestacao[largura][comprimento];
+        vegetacao = new Vegetacao[largura][comprimento];
         
         ovelhas = new CopyOnWriteArrayList();
         lobos = new CopyOnWriteArrayList();
         
-        for (i = 0; i < vegestacao.length; i++) {
-            for (j = 0; j < vegestacao[0].length; j++) {
-                /* probabilidade de haver vegestacao = 50% = 0.5 */
+        for (i = 0; i < vegetacao.length; i++) {
+            for (j = 0; j < vegetacao[0].length; j++) {
+                /* probabilidade de haver vegetacao = 50% = 0.5 */
                 if (rand.nextInt(2) == 0)
-                    vegestacao[i][j] = new Vegestacao(true);
+                    vegetacao[i][j] = new Vegetacao(true);
                 else
-                    vegestacao[i][j] = new Vegestacao(false);
+                    vegetacao[i][j] = new Vegetacao(false);
             }
         }
         
@@ -121,18 +121,18 @@ public class Mundo {
         Random rand = new Random();
         this.largura = largura;
         this.comprimento = comprimento;
-        vegestacao = new Vegestacao[largura][comprimento];
+        vegetacao = new Vegetacao[largura][comprimento];
         
         ovelhas = new CopyOnWriteArrayList();
         lobos = new CopyOnWriteArrayList();
         
-        for (i = 0; i < vegestacao.length; i++) {
-            for (j = 0; j < vegestacao[0].length; j++) {
-                /* probabilidade de haver vegestacao = 50% = 0.5 */
+        for (i = 0; i < vegetacao.length; i++) {
+            for (j = 0; j < vegetacao[0].length; j++) {
+                /* probabilidade de haver vegetacao = 50% = 0.5 */
                 if (rand.nextInt(2) == 0)
-                    vegestacao[i][j] = new Vegestacao(true);
+                    vegetacao[i][j] = new Vegetacao(true);
                 else
-                    vegestacao[i][j] = new Vegestacao(false);
+                    vegetacao[i][j] = new Vegetacao(false);
             }
         }
         
@@ -216,14 +216,14 @@ public class Mundo {
         return lobosRetornados;
     }
 
-    public Vegestacao[][] getVegestacao() {
-        return vegestacao;
+    public Vegetacao[][] getvegetacao() {
+        return vegetacao;
     }
     
-    public Vegestacao getVegestacao(Animal animal) {
-        Vegestacao veges = null;
+    public Vegetacao getvegetacao(Animal animal) {
+        Vegetacao veges = null;
         try {
-            veges = vegestacao[animal.getCoordenadas().getCoordX()][animal.getCoordenadas().getCoordY()];
+            veges = vegetacao[animal.getCoordenadas().getCoordX()][animal.getCoordenadas().getCoordY()];
         }
         catch(ArrayIndexOutOfBoundsException e) {
             System.out.println(animal.getCoordenadas().getCoordX() + " -- " + animal.getCoordenadas().getCoordY());
@@ -240,17 +240,17 @@ public class Mundo {
         this.lobos = lobos;
     }
 
-    public void setVegestacao(Vegestacao[][] vegestacao) {
-        this.vegestacao = vegestacao;
+    public void setvegetacao(Vegetacao[][] vegetacao) {
+        this.vegetacao = vegetacao;
     }
     
     
     
-    public int getNumeroVegestacaoTotal() {
+    public int getNumerovegetacaoTotal() {
         int soma = 0;
-        for (int i = 0; i < vegestacao.length; i++) {
-            for (int j = 0; j < vegestacao[0].length; j++) {
-                if (vegestacao[i][j].isReady())
+        for (int i = 0; i < vegetacao.length; i++) {
+            for (int j = 0; j < vegetacao[0].length; j++) {
+                if (vegetacao[i][j].isReady())
                     soma++;
             }
         }
@@ -259,10 +259,10 @@ public class Mundo {
     
 
     
-    public void cresceVegestacao() {
-        for (int i = 0; i < vegestacao.length; i++) {
-            for (int j = 0; j < vegestacao[0].length; j++) {
-                vegestacao[i][j].cresce();
+    public void crescevegetacao() {
+        for (int i = 0; i < vegetacao.length; i++) {
+            for (int j = 0; j < vegetacao[0].length; j++) {
+                vegetacao[i][j].cresce();
             }
         }    
     }
@@ -280,16 +280,21 @@ public class Mundo {
         for(int i = 0; i<= comprimento; i++)
                 g.drawLine(0, i*dY, largura*dX, i*dY);
 
-        for (int i = 0; i < vegestacao.length; i++) {
-            for (int j = 0; j < vegestacao[0].length; j++) {
-                if (vegestacao[i][j].isReady())
+        for (int i = 0; i < vegetacao.length; i++) {
+            for (int j = 0; j < vegetacao[0].length; j++) {
+                if (vegetacao[i][j].isReady())
                     g.setColor(new Color(0, 128, 0));
-                else
+                else 
                     g.setColor(new Color(255, 204, 102));
-
-                    
+  
                 g.fillRect(i*dX+1, j*dY+1, dX -1, dY -1);
+                
+                if (vegetacao[i][j].getCrescimento() >= 30)
+                    g.setColor(Color.BLACK);
+                else
+                    g.setColor(new Color(0, 128, 0));
 
+                g.drawString("" + (int)vegetacao[i][j].getCrescimento(), i*dX, j*dY+dY);
             }
         }
         
@@ -297,15 +302,25 @@ public class Mundo {
         //desenhar os objectos
         for(Ovelha ovelha : ovelhas) {
             g.setColor(Color.BLUE);
-            g.fillRect(ovelha.getCoordenadas().getCoordX()*dX+dX/4, ovelha.getCoordenadas().getCoordY()*dY+dY/4, dX/2, dY/2);
+            g.fillRect(ovelha.getCoordenadas().getCoordX()*dX+1, ovelha.getCoordenadas().getCoordY()*dY+1, dX-1, dY-1);
+            if (getOvelhas(ovelha).size()>1)
+                g.setColor(Color.WHITE);
+            else
+                g.setColor(Color.BLACK);
+            g.drawString("" + (int)ovelha.getEnergia(), ovelha.getCoordenadas().getCoordX()*dX, ovelha.getCoordenadas().getCoordY()*dY+dY);
+
         }
        
         for(Lobo lobo : lobos) {
             g.setColor(Color.RED);
-            g.fillRect(lobo.getCoordenadas().getCoordX()*dX+dX/4, lobo.getCoordenadas().getCoordY()*dY+dY/4, dX/2, dY/2);
-            g.setColor(Color.BLACK);
-            //g.draw
-            //g.drawString("1", lobo.getCoordenadas().getCoordX()*dX+dX/4, lobo.getCoordenadas().getCoordY()*dY+dY);
+            g.fillRect(lobo.getCoordenadas().getCoordX()*dX+1, lobo.getCoordenadas().getCoordY()*dY+1, dX-1, dY-1);
+            if (getLobos(lobo).size()>1)
+                g.setColor(Color.WHITE);
+            else
+                g.setColor(Color.BLACK);
+ 
+            
+            g.drawString("" + (int)lobo.getEnergia(), lobo.getCoordenadas().getCoordX()*dX, lobo.getCoordenadas().getCoordY()*dY+dY);
         }
              
     }

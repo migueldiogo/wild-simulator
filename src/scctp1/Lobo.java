@@ -51,15 +51,6 @@ public class Lobo extends Animal{
     
 
 
-    @Override
-    public void morre() {
-        mundo.getLobos().remove(this);
-    }
-    
-    @Override
-    public void ressuscita() {
-        mundo.getLobos().add(this);
-    }
 
     @Override
     public void tentaReproduzir() throws AnimalReproduziuException{
@@ -76,7 +67,6 @@ public class Lobo extends Animal{
     @Override
     public void come() {
         if (!mundo.getOvelhas(this).isEmpty()) {
-            System.out.println("Lobo - comi");
             double energiaTotal = 0;
             int numLobosLocais = mundo.getLobos(this).size();
             for (Ovelha ovelha : mundo.getOvelhas(this)) {

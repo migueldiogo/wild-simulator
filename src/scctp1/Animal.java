@@ -106,11 +106,7 @@ public abstract class Animal extends SerVivo {
     public abstract void come();
     
     public abstract void tentaReproduzir() throws AnimalReproduziuException;
-        
-    @Override
-    public abstract void morre();
-    
-    public abstract void ressuscita();
+
     
     
 }
