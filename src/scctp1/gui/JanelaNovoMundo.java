@@ -52,8 +52,13 @@ public class JanelaNovoMundo extends JFrame {
         jLabel6 = new javax.swing.JLabel();
         comprimentoInput = new javax.swing.JTextField();
         larguraInput = new javax.swing.JTextField();
-        tempoLimiteInput = new javax.swing.JTextField();
-        maxEntidadesInput = new javax.swing.JTextField();
+        numeroOvelhasInput = new javax.swing.JTextField();
+        numeroLobosInput = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        unidadesLimiteInput = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        unidadeTempoInput = new javax.swing.JTextField();
+        jSeparator1 = new javax.swing.JSeparator();
         jPanel2 = new javax.swing.JPanel();
         SimularButton = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -72,17 +77,36 @@ public class JanelaNovoMundo extends JFrame {
         jLabel6.setText("Número de Lobos");
 
         comprimentoInput.setColumns(8);
+        comprimentoInput.setText("51");
 
         larguraInput.setColumns(8);
+        larguraInput.setText("51");
 
-        tempoLimiteInput.setColumns(8);
-        tempoLimiteInput.addActionListener(new java.awt.event.ActionListener() {
+        numeroOvelhasInput.setColumns(8);
+        numeroOvelhasInput.setText("100");
+        numeroOvelhasInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tempoLimiteInputActionPerformed(evt);
+                numeroOvelhasInputActionPerformed(evt);
             }
         });
 
-        maxEntidadesInput.setColumns(8);
+        numeroLobosInput.setColumns(8);
+        numeroLobosInput.setText("30");
+        numeroLobosInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                numeroLobosInputActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Unidade de Tempo (s)");
+
+        unidadesLimiteInput.setColumns(8);
+        unidadesLimiteInput.setText("5000");
+
+        jLabel8.setText("Unidades Limite (s)");
+
+        unidadeTempoInput.setColumns(8);
+        unidadeTempoInput.setText("0.006");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -90,18 +114,29 @@ public class JanelaNovoMundo extends JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(comprimentoInput)
-                    .addComponent(larguraInput)
-                    .addComponent(tempoLimiteInput)
-                    .addComponent(maxEntidadesInput))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator1)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(comprimentoInput)
+                                .addComponent(larguraInput)
+                                .addComponent(numeroOvelhasInput)
+                                .addComponent(numeroLobosInput))
+                            .addComponent(unidadeTempoInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(unidadesLimiteInput, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,12 +152,26 @@ public class JanelaNovoMundo extends JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(tempoLimiteInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(numeroOvelhasInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(maxEntidadesInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(73, Short.MAX_VALUE))
+                    .addComponent(numeroLobosInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jLabel7)
+                        .addGap(0, 8, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(unidadeTempoInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(unidadesLimiteInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(43, 43, 43))
         );
 
         SimularButton.setText("Simular");
@@ -215,6 +264,7 @@ public class JanelaNovoMundo extends JFrame {
         boolean sucesso = true;
         
         int comprimento = 0, largura = 0, numeroOvelhas = 0, numeroLobos = 0;
+        double unidadeTempo = 0, unidadesLimite = 0;
         try {
             comprimento = Integer.parseInt(comprimentoInput.getText());
         }
@@ -244,7 +294,7 @@ public class JanelaNovoMundo extends JFrame {
         }
         
         try {
-            numeroLobos = Integer.parseInt(maxEntidadesInput.getText());
+            numeroLobos = Integer.parseInt(numeroLobosInput.getText());
         }
         catch (NumberFormatException e) {
             sucesso = false;
@@ -258,7 +308,7 @@ public class JanelaNovoMundo extends JFrame {
         }
         
         try {
-            numeroOvelhas = Integer.parseInt(tempoLimiteInput.getText());
+            numeroOvelhas = Integer.parseInt(numeroOvelhasInput.getText());
         }
         catch (NumberFormatException e) {
             sucesso = false;
@@ -271,6 +321,33 @@ public class JanelaNovoMundo extends JFrame {
             JOptionPane.showMessageDialog(this, "Numero de Ovelhas tem que ser um inteiro maior ou igual que 0", "Valor Introduzido Invalido", JOptionPane.ERROR_MESSAGE);
         }
         
+        try {
+            unidadeTempo = Double.parseDouble(unidadeTempoInput.getText());
+        }
+        catch (NumberFormatException e) {
+            sucesso = false;
+            JOptionPane.showMessageDialog(this, "A unidade de tempo tem que ser um inteiro maior que 0", "Valor Introduzido Invalido", JOptionPane.ERROR_MESSAGE);
+
+        }
+        
+        if (unidadeTempo <= 0) {
+            sucesso = false;
+            JOptionPane.showMessageDialog(this, "A unidade de tempo tem que ser um inteiro maior que 0", "Valor Introduzido Invalido", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        try {
+            unidadesLimite = Double.parseDouble(unidadesLimiteInput.getText());
+        }
+        catch (NumberFormatException e) {
+            sucesso = false;
+            JOptionPane.showMessageDialog(this, "O número de unidades de tempo limite tem que ser um inteiro maior que 0", "Valor Introduzido Invalido", JOptionPane.ERROR_MESSAGE);
+
+        }
+        
+        if (unidadesLimite <= 0) {
+            sucesso = false;
+            JOptionPane.showMessageDialog(this, "O número de unidades de tempo limite tem que ser um inteiro maior que 0", "Valor Introduzido Invalido", JOptionPane.ERROR_MESSAGE);
+        }
         
         if (sucesso == true) {
             dispose();
@@ -280,7 +357,7 @@ public class JanelaNovoMundo extends JFrame {
 
 
 
-            Simulacao sim = new Simulacao(1, 5000, 0.006, mundo);
+            Simulacao sim = new Simulacao(1, unidadesLimite, unidadeTempo, mundo);
             //Simulacao sim = new Simulacao(1, 60, 1, mundo);
             //Simulacao sim = new Simulacao(1, 5000, 0.024, mundo);
 
@@ -289,9 +366,13 @@ public class JanelaNovoMundo extends JFrame {
         }
     }//GEN-LAST:event_SimularButtonActionPerformed
 
-    private void tempoLimiteInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tempoLimiteInputActionPerformed
+    private void numeroOvelhasInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numeroOvelhasInputActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tempoLimiteInputActionPerformed
+    }//GEN-LAST:event_numeroOvelhasInputActionPerformed
+
+    private void numeroLobosInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numeroLobosInputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_numeroLobosInputActionPerformed
 
     /**
      * @param args the command line arguments
@@ -337,13 +418,18 @@ public class JanelaNovoMundo extends JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField larguraInput;
-    private javax.swing.JTextField maxEntidadesInput;
-    private javax.swing.JTextField tempoLimiteInput;
+    private javax.swing.JTextField numeroLobosInput;
+    private javax.swing.JTextField numeroOvelhasInput;
+    private javax.swing.JTextField unidadeTempoInput;
+    private javax.swing.JTextField unidadesLimiteInput;
     // End of variables declaration//GEN-END:variables
 }

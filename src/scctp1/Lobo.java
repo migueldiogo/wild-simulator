@@ -1,14 +1,9 @@
 package scctp1;
 
 
-import java.util.ListIterator;
 import java.util.Random;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 /**
  *
@@ -51,7 +46,10 @@ public class Lobo extends Animal{
     
 
 
-
+    /**
+     * Lobo tenta reproduzir-se.
+     * @throws AnimalReproduziuException 
+     */
     @Override
     public void tentaReproduzir() throws AnimalReproduziuException{
         Random rand = new Random();
@@ -64,6 +62,9 @@ public class Lobo extends Animal{
 
     }
 
+    /**
+     * Lobo come ovelha/ovelhas da sua casa. Se houver mais lobos, partilha-a(s) igualmente.
+     */
     @Override
     public void come() {
         if (!mundo.getOvelhas(this).isEmpty()) {

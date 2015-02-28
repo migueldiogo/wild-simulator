@@ -3,11 +3,7 @@ package scctp1;
 
 import java.util.Random;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 /**
  *
@@ -48,7 +44,10 @@ public class Ovelha extends Animal{
     
 
 
-
+    /**
+     * Ovelha tenta reproduzir-se.
+     * @throws AnimalReproduziuException 
+     */
     @Override
     public void tentaReproduzir() throws AnimalReproduziuException{
         Random rand = new Random();
@@ -59,6 +58,9 @@ public class Ovelha extends Animal{
             
     }
 
+    /**
+     * Ovelha come vegetação se esta for madura. Se houver mais ovelhas na sua casa, partilha a energia potencialmente adquirida.
+     */
     @Override
     public void come() {
         Vegetacao vegetacaoLocal = mundo.getvegetacao(this);

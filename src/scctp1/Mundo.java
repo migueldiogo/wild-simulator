@@ -2,33 +2,22 @@ package scctp1;
 
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.ListIterator;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 /**
  *
  * @author MiguelDiogo
  */
 public class Mundo {
-    /**
-     * Comprimento do mundo (dimensão vertical)
-     */
+
     private int comprimento;
-    /**
-     * Largura do mundo (dimensão horizontal)
-     */
     private int largura;
     private CopyOnWriteArrayList<Ovelha> ovelhas;
     private CopyOnWriteArrayList<Lobo> lobos;
@@ -195,7 +184,11 @@ public class Mundo {
         return lobos;
     }
 
-    /* retorna array de ovelhas cujas coordenadas coincidem com o animal em argumento */
+    /** 
+     * Retorna array de ovelhas cujas coordenadas coincidem com o animal em argumento.
+     * @param animal
+     * @return lista de ovelhas na casa do animal passado em parâmetro.
+     */
     public ArrayList<Ovelha> getOvelhas(Animal animal) {
         ArrayList<Ovelha> ovelhasRetornadas = new ArrayList();
         ListIterator<Ovelha> itOvelhas = ovelhas.listIterator();
@@ -220,6 +213,11 @@ public class Mundo {
         return vegetacao;
     }
     
+    /**
+     * Devolve vegetacao onde se encontra o animal passado em parâmetro.
+     * @param animal
+     * @return vegetacao onde se encontra o animal passado em parâmetro.
+     */
     public Vegetacao getvegetacao(Animal animal) {
         Vegetacao veges = null;
         try {
