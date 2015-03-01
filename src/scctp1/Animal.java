@@ -68,21 +68,22 @@ public abstract class Animal extends SerVivo {
     public void move() throws AnimalMorreuException, AnimalReproduziuException {
         Random rand = new Random();
         /* escolhe a casa vizinha a visitar */
-        
-        int dX, dY;
-        do {
-            dX = rand.nextInt((1 - (-1)) + 1) + (-1);       // move-se zero ou uma casa na horizontal
-            dY = rand.nextInt((1 - (-1)) + 1) + (-1);       // move-se zero ou uma casa na horizontal
+        if (energia > 0) {
+            int dX, dY;
+            do {
+                dX = rand.nextInt((1 - (-1)) + 1) + (-1);       // move-se zero ou uma casa na horizontal
+                dY = rand.nextInt((1 - (-1)) + 1) + (-1);       // move-se zero ou uma casa na horizontal
+            }
+            while (dX == 0 && dY == 0);
+
+            //System.out.println(dX + " " + dY);
+            //System.out.print("movi de " + coordenada.getCoordX() + " " + coordenada.getCoordY());
+            coordenada.adiciona(mundo, dX, dY);   // move animal
+            //System.out.println(" para " + coordenada.getCoordX() + " " + coordenada.getCoordY());
+
+
+            energia--;
         }
-        while (dX == 0 && dY == 0);
-
-        //System.out.println(dX + " " + dY);
-        //System.out.print("movi de " + coordenada.getCoordX() + " " + coordenada.getCoordY());
-        coordenada.adiciona(mundo, dX, dY);   // move animal
-        //System.out.println(" para " + coordenada.getCoordX() + " " + coordenada.getCoordY());
-
-     
-        energia--;
         if (energia <= 0) {
             throw new AnimalMorreuException();
         }
